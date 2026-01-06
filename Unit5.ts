@@ -15,3 +15,28 @@ const cardSymbols: string[] = [
 function pause(message: string): void {
   prompt(message);
 }
+
+// Prompt user for a number within a range
+function promptNumber(message: string, min: number, max: number): number { // It asks the user for a number, makes sure the input is valid and within a range, and keeps asking until it is
+  let input: string | null = null;
+  let num: number = 0;
+  let valid: boolean = false;
+
+
+  while (!valid) {
+    input = prompt(message);
+    if (input === null) {
+      console.log("Input cancelled. Exiting game.");
+      return -1;
+    }
+    num = Number(input);
+    if (!isNaN(num) && num >= min && num <= max) {
+      valid = true;
+    } else {
+      console.log(`Invalid input. Enter a number between ${min} and ${max}.`);
+    }
+  }
+
+
+  return num;
+}
