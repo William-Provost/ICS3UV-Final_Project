@@ -40,3 +40,12 @@ function promptNumber(message: string, min: number, max: number): number { // It
 
   return num;
 }
+
+// Draw a random card (value + Unicode symbol)
+function drawCard(): { value: number; symbol: string } {
+ const index = Math.floor(Math.random() * cardSymbols.length);
+ return {
+   value: index + 1,
+   symbol: cardSymbols[index]
+ };
+}
