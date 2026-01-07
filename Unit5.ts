@@ -49,3 +49,53 @@ function drawCard(): { value: number; symbol: string } {
    symbol: cardSymbols[index]
  };
 }
+
+// Play a single mini-round
+function playMiniRound(roundNum: number, miniNum: number): number {
+  console.log(`\nRound ${roundNum}, Mini-round ${miniNum}:`);
+  pause("Press Enter to draw your card.");
+
+
+  const playerCard = drawCard();
+  const computerCard = drawCard();
+
+
+  console.log(`You drew: ${playerCard.symbol} (${playerCard.value})`);
+  console.log(`Computer drew: ${computerCard.symbol} (${computerCard.value})`);
+
+
+  if (playerCard.value > computerCard.value) {
+    console.log("You win this mini-round!");
+    return 1;
+  } else if (computerCard.value > playerCard.value) {
+    console.log("Computer wins this mini-round!");
+    return -1;
+  } else {
+    console.log("Mini-round tied!");
+    return 0;
+  }
+}
+
+
+// Play a full round (best of 3 mini-rounds)
+function playRound(roundNum: number): number {
+  let playerWins = 0;
+  let computerWins = 0;
+
+
+  for (let mini = 1; mini <= 3; mini++) {
+    const result = playMiniRound(roundNum, mini);
+    if (result === 1) playerWins++;
+    else if (result === -1) computerWins++;
+
+
+    console.log(`Current Score - You: ${playerWins}, Computer: ${computerWins}`);
+    pause("Press Enter to continue to the next mini-round.");
+  }
+
+
+  console.log(`\nRound ${roundNum} result: You ${playerWins} - ${computerWins} Computer`);
+  if (playerWins > computerWins) return 1;
+  if (computerWins > playerWins) return -1;
+  return 0;
+}
