@@ -99,3 +99,4 @@ function playRound(roundNum: number): number {
   if (computerWins > playerWins) return -1;
   return 0;
 }
+
