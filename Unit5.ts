@@ -99,4 +99,5 @@ function playRound(roundNum: number): number {
   if (computerWins > playerWins) return -1;
   return 0;
 }
-
+// ---------------- START GAME ----------------
+console.log("Welcome to the Simplified Card Game!");
