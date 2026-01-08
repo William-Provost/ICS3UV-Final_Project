@@ -101,3 +101,25 @@ function playRound(roundNum: number): number {
 }
 // ---------------- START GAME ----------------
 console.log("Welcome to the Simplified Card Game!");
+
+// Choose game mode
+const gameMode = promptNumber(
+  "Choose game mode (1: 1 round best-of-3, 2: up to 3 rounds sum of cards):",
+  1,
+  2
+);
+
+
+if (gameMode === -1) {
+  console.log("Game cancelled.");
+} else if (gameMode === 1) {
+  console.log("\nGame Mode 1: Single round best of 3 mini-rounds");
+  const winner = playRound(1);
+
+
+  if (winner === 1) console.log("\nYou won the game!");
+  else if (winner === -1) console.log("\nComputer won the game!");
+  else console.log("\nThe game is a tie!");
+} else {
+  console.log("\nGame Mode 2: Up to 3 rounds, sum of cards");
+
