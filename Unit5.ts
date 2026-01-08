@@ -109,13 +109,11 @@ const gameMode = promptNumber(
   2
 );
 
-
 if (gameMode === -1) {
   console.log("Game cancelled.");
 } else if (gameMode === 1) {
   console.log("\nGame Mode 1: Single round best of 3 mini-rounds");
   const winner = playRound(1);
-
 
   if (winner === 1) console.log("\nYou won the game!");
   else if (winner === -1) console.log("\nComputer won the game!");
@@ -123,3 +121,16 @@ if (gameMode === -1) {
 } else {
   console.log("\nGame Mode 2: Up to 3 rounds, sum of cards");
 
+  let playerRounds = 0;
+  let computerRounds = 0;
+
+  for (let round = 1; round <= 3; round++) {
+    console.log(`\nStarting Round ${round}`);
+    let playerSum = 0;
+    let computerSum = 0;
+
+    for (let mini = 1; mini <= 3; mini++) {
+      pause(`Round ${round}, Mini-round ${mini}: Press Enter to draw your card.`);
+
+      const playerCard = drawCard();
+      const computerCard = drawCard();
