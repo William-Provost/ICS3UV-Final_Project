@@ -176,4 +176,12 @@ if (gameMode === -1) {
     pause("Press Enter to continue to the next round.");
   }
 
- 
+  console.log(`\nFinal Score: You ${playerRounds} - ${computerRounds} Computer`);
+  if (playerRounds > computerRounds) console.log("You won the game!");
+  else if (computerRounds > playerRounds) console.log("Computer won the game!");
+  else console.log("The game is a tie!");
+}
+
+
+console.log("\nThank you for playing!");
+console.log("\nDone.");
