@@ -1,10 +1,15 @@
 /**
-* @author William Provost
-* @version 1.0.0
-* @date 2025-01-06
-* @fileoverview Simplified number-based card game with Unicode cards
-*/
+ * @author William Provost
+ * @version 1.0.0
+ * @date 2025-01-06
+ * @fileoverview Simplified number-based card game with Unicode cards
+ */
 
+
+/* ============================================================
+ * CONSTANTS / GLOBAL DATA
+ * ============================================================
+ */
 
 // Unicode card symbols (Ace–King of Spades)
 const cardSymbols: string[] = [
@@ -13,18 +18,27 @@ const cardSymbols: string[] = [
 ];
 
 
+/* ============================================================
+ * UTILITY FUNCTIONS
+ * ============================================================
+ */
+
 // Pause function (replaces alerts)
 function pause(message: string): void {
   prompt(message);
 }
 
 
+/* ============================================================
+ * INPUT VALIDATION FUNCTIONS
+ * ============================================================
+ */
+
 // Prompt user for a number within a range
 function promptNumber(message: string, min: number, max: number): number {
   let input: string | null = null;
   let num: number = 0;
   let valid: boolean = false;
-
 
   while (!valid) {
     input = prompt(message);
@@ -40,10 +54,14 @@ function promptNumber(message: string, min: number, max: number): number {
     }
   }
 
-
   return num;
 }
 
+
+/* ============================================================
+ * CARD LOGIC FUNCTIONS
+ * ============================================================
+ */
 
 // Draw a random card (value + Unicode symbol)
 function drawCard(): { value: number; symbol: string } {
@@ -55,19 +73,21 @@ function drawCard(): { value: number; symbol: string } {
 }
 
 
+/* ============================================================
+ * GAMEPLAY FUNCTIONS — MINI-ROUNDS & ROUNDS
+ * ============================================================
+ */
+
 // Play a single mini-round
 function playMiniRound(roundNum: number, miniNum: number): number {
   console.log(`\nRound ${roundNum}, Mini-round ${miniNum}:`);
   pause("Press Enter to draw your card.");
 
-
   const playerCard = drawCard();
   const computerCard = drawCard();
 
-
   console.log(`You drew: ${playerCard.symbol} (${playerCard.value})`);
   console.log(`Computer drew: ${computerCard.symbol} (${computerCard.value})`);
-
 
   if (playerCard.value > computerCard.value) {
     console.log("You win this mini-round!");
@@ -87,17 +107,14 @@ function playRound(roundNum: number): number {
   let playerWins = 0;
   let computerWins = 0;
 
-
   for (let mini = 1; mini <= 3; mini++) {
     const result = playMiniRound(roundNum, mini);
     if (result === 1) playerWins++;
     else if (result === -1) computerWins++;
 
-
     console.log(`Current Score - You: ${playerWins}, Computer: ${computerWins}`);
     pause("Press Enter to continue to the next mini-round.");
   }
-
 
   console.log(`\nRound ${roundNum} result: You ${playerWins} - ${computerWins} Computer`);
   if (playerWins > computerWins) return 1;
@@ -106,9 +123,19 @@ function playRound(roundNum: number): number {
 }
 
 
+/* ============================================================
+ * MAIN PROGRAM — GAME FLOW CONTROL
+ * ============================================================
+ */
+
 // ---------------- START GAME ----------------
 console.log("Welcome to the Simplified Card Game!");
 
+
+/* ============================================================
+ * GAME MODE SELECTION
+ * ============================================================
+ */
 
 // Choose game mode
 const gameMode = promptNumber(
@@ -118,49 +145,53 @@ const gameMode = promptNumber(
 );
 
 
+/* ============================================================
+ * GAME MODE 1 — BEST OF 3 MINI-ROUNDS
+ * ============================================================
+ */
+
 if (gameMode === -1) {
   console.log("Game cancelled.");
 } else if (gameMode === 1) {
   console.log("\nGame Mode 1: Single round best of 3 mini-rounds");
   const winner = playRound(1);
 
-
   if (winner === 1) console.log("\nYou won the game!");
   else if (winner === -1) console.log("\nComputer won the game!");
   else console.log("\nThe game is a tie!");
-} else {
-  console.log("\nGame Mode 2: Up to 3 rounds, sum of cards");
+}
 
+
+/* ============================================================
+ * GAME MODE 2 — MULTI-ROUND CARD SUM GAME
+ * ============================================================
+ */
+
+else {
+  console.log("\nGame Mode 2: Up to 3 rounds, sum of cards");
 
   let playerRounds = 0;
   let computerRounds = 0;
-
 
   for (let round = 1; round <= 3; round++) {
     console.log(`\nStarting Round ${round}`);
     let playerSum = 0;
     let computerSum = 0;
 
-
     for (let mini = 1; mini <= 3; mini++) {
       pause(`Round ${round}, Mini-round ${mini}: Press Enter to draw your card.`);
-
 
       const playerCard = drawCard();
       const computerCard = drawCard();
 
-
       console.log(`You drew: ${playerCard.symbol} (${playerCard.value})`);
       console.log(`Computer drew: ${computerCard.symbol} (${computerCard.value})`);
-
 
       playerSum += playerCard.value;
       computerSum += computerCard.value;
 
-
       console.log(`Current sum - You: ${playerSum}, Computer: ${computerSum}`);
     }
-
 
     if (playerSum > computerSum) {
       console.log(`You win Round ${round}!`);
@@ -172,7 +203,6 @@ if (gameMode === -1) {
       console.log(`Round ${round} is a tie!`);
     }
 
-
     pause("Press Enter to continue to the next round.");
   }
 
@@ -182,6 +212,10 @@ if (gameMode === -1) {
   else console.log("The game is a tie!");
 }
 
+/* ============================================================
+ * PROGRAM END
+ * ============================================================
+ */
 
 console.log("\nThank you for playing!");
 console.log("\nDone.");
