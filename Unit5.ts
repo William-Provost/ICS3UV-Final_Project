@@ -37,7 +37,7 @@ function pause(message: string): void {
 // Prompt user for a number within a range
 function promptNumber(message: string, min: number, max: number): number {
   let input: string | null = null;
-  let num: number = 0;
+  let number: number = 0;
   let valid: boolean = false;
 
   while (!valid) {
@@ -46,15 +46,15 @@ function promptNumber(message: string, min: number, max: number): number {
       console.log("Input cancelled. Exiting game.");
       return -1;
     }
-    num = Number(input);
-    if (!isNaN(num) && num >= min && num <= max) {
+    number = Number(input);
+    if (!isNaN(number) && number >= min && number <= max) {
       valid = true;
     } else {
       console.log(`Invalid input. Enter a number between ${min} and ${max}.`);
     }
   }
 
-  return num;
+  return number;
 }
 
 
