@@ -94,10 +94,10 @@ func playMiniRound(roundNum int, miniNum int) int {
 	} else if computerValue > playerValue {
 		fmt.Println("Computer wins this mini-round!")
 		return -1
-	} else {
-		fmt.Println("Mini-round tied!")
-		return 0
 	}
+
+	fmt.Println("Mini-round tied!")
+	return 0
 }
 
 // Play a full round (best of 3 mini-rounds)
@@ -109,7 +109,7 @@ func playRound(roundNum int) int {
 		result := playMiniRound(roundNum, mini)
 
 		switch result {
-case 1:
+		case 1:
 			playerWins++
 		case -1:
 			computerWins++
@@ -152,7 +152,7 @@ func main() {
 		winner := playRound(1)
 
 		switch winner {
-case 1:
+		case 1:
 			fmt.Println("\nYou won the game!")
 		case -1:
 			fmt.Println("\nComputer won the game!")
