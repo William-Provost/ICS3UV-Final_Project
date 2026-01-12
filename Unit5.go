@@ -161,8 +161,8 @@ func main() {
 		}
 
 	} else {
-		// ---------------- GAME MODE 2 ----------------
 		
+		// ---------------- GAME MODE 2 ----------------
 		fmt.Println("\nGame Mode 2: Up to 3 rounds, sum of cards")
 
 		playerRounds := 0
