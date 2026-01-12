@@ -108,7 +108,6 @@ func playRound(roundNum int) int {
 	for mini := 1; mini <= 3; mini++ {
 		result := playMiniRound(roundNum, mini)
 
-  // Program required switch here so there would be no linting errors
 		switch result {
 case 1:
 			playerWins++
@@ -152,7 +151,6 @@ func main() {
 
 		winner := playRound(1)
 
-  // Program required switch here so there would be no linting errors
 		switch winner {
 case 1:
 			fmt.Println("\nYou won the game!")
