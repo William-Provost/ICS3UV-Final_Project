@@ -7,7 +7,7 @@
 
 
 /* ============================================================
- * CONSTANTS / GLOBAL DATA
+ * CONSTANTS
  * ============================================================
  */
 
@@ -74,7 +74,7 @@ function drawCard(): { value: number; symbol: string } {
 
 
 /* ============================================================
- * GAMEPLAY FUNCTIONS — MINI-ROUNDS & ROUNDS
+ * GAMEPLAY FUNCTIONS - MINI-ROUNDS & ROUNDS
  * ============================================================
  */
 
@@ -128,7 +128,7 @@ function playRound(roundNum: number): number {
  * ============================================================
  */
 
-// ---------------- START GAME ----------------
+// Start game
 console.log("Welcome to the Simplified Card Game!");
 
 
