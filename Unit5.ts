@@ -28,7 +28,6 @@ function pause(message: string): void {
   prompt(message);
 }
 
-
 /* ============================================================
  * INPUT VALIDATION FUNCTIONS
  * ============================================================
@@ -57,7 +56,6 @@ function promptNumber(message: string, min: number, max: number): number {
   return number;
 }
 
-
 /* ============================================================
  * CARD LOGIC FUNCTIONS
  * ============================================================
@@ -71,7 +69,6 @@ function drawCard(): { value: number; symbol: string } {
     symbol: cardSymbols[index]
   };
 }
-
 
 /* ============================================================
  * GAMEPLAY FUNCTIONS - MINI-ROUNDS & ROUNDS
@@ -101,7 +98,6 @@ function playMiniRound(roundNum: number, miniNum: number): number {
   }
 }
 
-
 // Play a full round (best of 3 mini-rounds)
 function playRound(roundNum: number): number {
   let playerWins = 0;
@@ -122,7 +118,6 @@ function playRound(roundNum: number): number {
   return 0;
 }
 
-
 /* ============================================================
  * MAIN PROGRAM — GAME FLOW CONTROL
  * ============================================================
@@ -130,7 +125,6 @@ function playRound(roundNum: number): number {
 
 // Start game
 console.log("Welcome to the Simplified Card Game!");
-
 
 /* ============================================================
  * GAME MODE SELECTION
@@ -143,7 +137,6 @@ const gameMode = promptNumber(
   1,
   2
 );
-
 
 /* ============================================================
  * GAME MODE 1 — BEST OF 3 MINI-ROUNDS
@@ -160,7 +153,6 @@ if (gameMode === -1) {
   else if (winner === -1) console.log("\nComputer won the game!");
   else console.log("\nThe game is a tie!");
 }
-
 
 /* ============================================================
  * GAME MODE 2 — MULTI-ROUND CARD SUM GAME
