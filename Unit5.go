@@ -19,7 +19,7 @@ import (
    CONSTANTS
    ============================================================ */
 
-// Unicode card symbols (Ace–King of Spades)
+// Unicode card symbols
 var cardSymbols = []string{
 	"🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂧",
 	"🂨", "🂩", "🂪", "🂫", "🂭", "🂮",
@@ -161,6 +161,7 @@ func main() {
 		}
 
 	} else {
+		
 		// ---------------- GAME MODE 2 ----------------
 		fmt.Println("\nGame Mode 2: Up to 3 rounds, sum of cards")
 

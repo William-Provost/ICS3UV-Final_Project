@@ -23,7 +23,7 @@ const cardSymbols: string[] = [
  * ============================================================
  */
 
-// Pause function (replaces alerts)
+// Pause function
 function pause(message: string): void {
   prompt(message);
 }
@@ -142,6 +142,7 @@ const gameMode = promptNumber(
  * GAME MODE 1 — BEST OF 3 MINI-ROUNDS
  * ============================================================
  */
+
 if (gameMode === -1) {
   console.log("Game cancelled.");
 } else if (gameMode === 1) {
