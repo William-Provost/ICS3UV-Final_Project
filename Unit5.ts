@@ -31,7 +31,7 @@ function pause(message: string): void {
  * ============================================================
  */
 
-// Prompt user for a number within a range (NO constant condition)
+// Prompt user for a number within a range
 function promptNumber(message: string, min: number, max: number): number {
   let input: string | null = null;
   let number: number = 0;
