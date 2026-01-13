@@ -1,213 +1,181 @@
 /**
- * @author William Provost
- * @version 1.0.0
- * @date 2025-01-06
- * @fileoverview Simplified number-based card game with Unicode cards
+ * Author: William Provost
+ * Version: 1.0.0
+ * Date: 2025-01-06
+ * Fileoverview: Simplified number-based card game using Unicode cards
  */
-
 
 /* ============================================================
  * CONSTANTS
  * ============================================================
  */
 
-// Unicode card symbols (Ace–King of Spades)
 const cardSymbols: string[] = [
   "🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂧",
   "🂨", "🂩", "🂪", "🂫", "🂭", "🂮"
 ];
-
 
 /* ============================================================
  * UTILITY FUNCTIONS
  * ============================================================
  */
 
-// Pause function
 function pause(message: string): void {
   prompt(message);
 }
 
 /* ============================================================
- * INPUT VALIDATION FUNCTIONS
+ * MAIN PROGRAM
  * ============================================================
  */
 
-// Prompt user for a number within a range
-function promptNumber(message: string, min: number, max: number): number {
-  let input: string | null = null;
-  let number: number = 0;
-  let valid: boolean = false;
+// --------------------
+// VARIABLE DECLARATION
+// --------------------
 
-  while (!valid) {
-    input = prompt(message);
-    if (input === null) {
-      console.log("Input cancelled. Exiting game.");
-      return -1;
-    }
-    number = Number(input);
-    if (!isNaN(number) && number >= min && number <= max) {
-      valid = true;
-    } else {
-      console.log(`Invalid input. Enter a number between ${min} and ${max}.`);
-    }
-  }
+let gameMode: number = 0;
+let inputString: string | null;
 
-  return number;
-}
+let playerValue: number;
+let computerValue: number;
 
-/* ============================================================
- * CARD LOGIC FUNCTIONS
- * ============================================================
- */
+let playerWins: number;
+let computerWins: number;
 
-// Draw a random card (value + Unicode symbol)
-function drawCard(): { value: number; symbol: string } {
-  const index = Math.floor(Math.random() * cardSymbols.length);
-  return {
-    value: index + 1,
-    symbol: cardSymbols[index]
-  };
-}
+let playerSum: number;
+let computerSum: number;
 
-/* ============================================================
- * GAMEPLAY FUNCTIONS - MINI-ROUNDS & ROUNDS
- * ============================================================
- */
+let playerRounds: number;
+let computerRounds: number;
 
-// Play a single mini-round
-function playMiniRound(roundNum: number, miniNum: number): number {
-  console.log(`\nRound ${roundNum}, Mini-round ${miniNum}:`);
-  pause("Press Enter to draw your card.");
+let round: number;
+let mini: number;
 
-  const playerCard = drawCard();
-  const computerCard = drawCard();
+// --------------------
+// INITIAL SETUP
+// --------------------
 
-  console.log(`You drew: ${playerCard.symbol} (${playerCard.value})`);
-  console.log(`Computer drew: ${computerCard.symbol} (${computerCard.value})`);
-
-  if (playerCard.value > computerCard.value) {
-    console.log("You win this mini-round!");
-    return 1;
-  } else if (computerCard.value > playerCard.value) {
-    console.log("Computer wins this mini-round!");
-    return -1;
-  } else {
-    console.log("Mini-round tied!");
-    return 0;
-  }
-}
-
-// Play a full round (best of 3 mini-rounds)
-function playRound(roundNum: number): number {
-  let playerWins = 0;
-  let computerWins = 0;
-
-  for (let mini = 1; mini <= 3; mini++) {
-    const result = playMiniRound(roundNum, mini);
-    if (result === 1) playerWins++;
-    else if (result === -1) computerWins++;
-
-    console.log(`Current Score - You: ${playerWins}, Computer: ${computerWins}`);
-    pause("Press Enter to continue to the next mini-round.");
-  }
-
-  console.log(`\nRound ${roundNum} result: You ${playerWins} - ${computerWins} Computer`);
-  if (playerWins > computerWins) return 1;
-  if (computerWins > playerWins) return -1;
-  return 0;
-}
-
-/* ============================================================
- * MAIN PROGRAM — GAME FLOW CONTROL
- * ============================================================
- */
-
-// Start game
 console.log("Welcome to the Simplified Card Game!");
 
-/* ============================================================
- * GAME MODE SELECTION
- * ============================================================
- */
+// --------------------
+// GET GAME MODE
+// --------------------
 
-// Choose game mode
-const gameMode = promptNumber(
-  "Choose game mode (1: 1 round best-of-3, 2: up to 3 rounds sum of cards):",
-  1,
-  2
-);
+while (true) {
+  inputString = prompt("Choose game mode (1: best-of-3, 2: sum of cards):");
+  if (inputString === null) {
+    console.log("Game cancelled.");
+    console.log("Done.");
+    break;
+  }
 
-/* ============================================================
- * GAME MODE 1 — BEST OF 3 MINI-ROUNDS
- * ============================================================
- */
+  gameMode = Number(inputString);
 
-if (gameMode === -1) {
-  console.log("Game cancelled.");
-} else if (gameMode === 1) {
-  console.log("\nGame Mode 1: Single round best of 3 mini-rounds");
-  const winner = playRound(1);
+  if (gameMode === 1 || gameMode === 2) {
+    break;
+  }
 
-  if (winner === 1) console.log("\nYou won the game!");
-  else if (winner === -1) console.log("\nComputer won the game!");
-  else console.log("\nThe game is a tie!");
+  console.log("Invalid choice. Enter 1 or 2.");
 }
 
-/* ============================================================
- * GAME MODE 2 — MULTI-ROUND CARD SUM GAME
- * ============================================================
- */
+// ============================================================
+// GAME MODE 1: BEST OF 3
+// ============================================================
 
-else {
-  console.log("\nGame Mode 2: Up to 3 rounds, sum of cards");
+if (gameMode === 1) {
+  console.log("\nGame Mode 1: Best of 3 mini-rounds");
 
-  let playerRounds = 0;
-  let computerRounds = 0;
+  playerWins = 0;
+  computerWins = 0;
 
-  for (let round = 1; round <= 3; round++) {
-    console.log(`\nStarting Round ${round}`);
-    let playerSum = 0;
-    let computerSum = 0;
+  for (mini = 1; mini <= 3; mini++) {
+    console.log(`\nMini-round ${mini}`);
+    pause("Press ENTER to draw cards.");
 
-    for (let mini = 1; mini <= 3; mini++) {
-      pause(`Round ${round}, Mini-round ${mini}: Press Enter to draw your card.`);
+    playerValue = Math.floor(Math.random() * cardSymbols.length) + 1;
+    computerValue = Math.floor(Math.random() * cardSymbols.length) + 1;
 
-      const playerCard = drawCard();
-      const computerCard = drawCard();
+    console.log(`You drew: ${cardSymbols[playerValue - 1]} (${playerValue})`);
+    console.log(`Computer drew: ${cardSymbols[computerValue - 1]} (${computerValue})`);
 
-      console.log(`You drew: ${playerCard.symbol} (${playerCard.value})`);
-      console.log(`Computer drew: ${computerCard.symbol} (${computerCard.value})`);
+    if (playerValue > computerValue) {
+      console.log("You win this mini-round!");
+      playerWins++;
+    } else if (computerValue > playerValue) {
+      console.log("Computer wins this mini-round!");
+      computerWins++;
+    } else {
+      console.log("Mini-round is a tie!");
+    }
 
-      playerSum += playerCard.value;
-      computerSum += computerCard.value;
+    console.log(`Score - You: ${playerWins} Computer: ${computerWins}`);
+  }
 
-      console.log(`Current sum - You: ${playerSum}, Computer: ${computerSum}`);
+  if (playerWins > computerWins) {
+    console.log("\nYou won the game!");
+  } else if (computerWins > playerWins) {
+    console.log("\nComputer won the game!");
+  } else {
+    console.log("\nThe game is a tie!");
+  }
+}
+
+// ============================================================
+// GAME MODE 2: SUM OF CARDS
+// ============================================================
+
+else if (gameMode === 2) {
+  console.log("\nGame Mode 2: Sum of cards");
+
+  playerRounds = 0;
+  computerRounds = 0;
+
+  for (round = 1; round <= 3; round++) {
+    console.log(`\nRound ${round}`);
+
+    playerSum = 0;
+    computerSum = 0;
+
+    for (mini = 1; mini <= 3; mini++) {
+      pause("Press ENTER to draw cards.");
+
+      playerValue = Math.floor(Math.random() * cardSymbols.length) + 1;
+      computerValue = Math.floor(Math.random() * cardSymbols.length) + 1;
+
+      console.log(`You drew: ${cardSymbols[playerValue - 1]} (${playerValue})`);
+      console.log(`Computer drew: ${cardSymbols[computerValue - 1]} (${computerValue})`);
+
+      playerSum += playerValue;
+      computerSum += computerValue;
+
+      console.log(`Current sum - You: ${playerSum} Computer: ${computerSum}`);
     }
 
     if (playerSum > computerSum) {
-      console.log(`You win Round ${round}!`);
+      console.log("You win this round!");
       playerRounds++;
     } else if (computerSum > playerSum) {
-      console.log(`Computer wins Round ${round}!`);
+      console.log("Computer wins this round!");
       computerRounds++;
     } else {
-      console.log(`Round ${round} is a tie!`);
+      console.log("Round is a tie!");
     }
-
-    pause("Press Enter to continue to the next round.");
   }
 
-  console.log(`\nFinal Score: You ${playerRounds} - ${computerRounds} Computer`);
-  if (playerRounds > computerRounds) console.log("You won the game!");
-  else if (computerRounds > playerRounds) console.log("Computer won the game!");
-  else console.log("The game is a tie!");
+  console.log(`\nFinal Score - You: ${playerRounds} Computer: ${computerRounds}`);
+
+  if (playerRounds > computerRounds) {
+    console.log("You won the game!");
+  } else if (computerRounds > playerRounds) {
+    console.log("Computer won the game!");
+  } else {
+    console.log("The game is a tie!");
+  }
 }
 
-/* ============================================================
- * PROGRAM END
- * ============================================================
- */
+// ============================================================
+// PROGRAM END
+// ============================================================
 
-console.log("\nThank you for playing!");
+console.log("\nThank you for playing!")
 console.log("\nDone.");
