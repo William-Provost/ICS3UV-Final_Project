@@ -1,6 +1,6 @@
 /**
  * @author William Provost
- * @version 1.0.0
+ * @version 1.3.0
  * @date 2025-01-06
  * @fileoverview Simplified number-based card game with Unicode cards
  */
