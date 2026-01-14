@@ -11,10 +11,22 @@
  */
 
 // Unicode card symbols (Ace–King of Spades)
-const cardSymbols: string[] = [
+const card_Symbols: string[] = [
   "🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂧",
   "🂨", "🂩", "🂪", "🂫", "🂭", "🂮"
 ];
+
+// Game configuration constants
+const mini_Rounds: number = 3;
+const total_Rounds: number = 3;
+
+/* ============================================================
+ * GLOBAL VARIABLES
+ * ============================================================
+ */
+
+// Game mode selected by user
+let gameMode: number = 0;
 
 /* ============================================================
  * UTILITY FUNCTIONS
@@ -64,10 +76,10 @@ function promptNumber(message: string, min: number, max: number): number {
 
 // Draw a random card
 function drawCard(): { value: number; symbol: string } {
-  const index = Math.floor(Math.random() * cardSymbols.length);
+  const index = Math.floor(Math.random() * card_Symbols.length);
   return {
     value: index + 1,
-    symbol: cardSymbols[index]
+    symbol: card_Symbols[index]
   };
 }
 
@@ -104,7 +116,7 @@ function playRound(roundNum: number): number {
   let playerWins: number = 0;
   let computerWins: number = 0;
 
-  for (let mini = 1; mini <= 3; mini++) {
+  for (let mini = 1; mini <= mini_Rounds; mini++) {
     const result = playMiniRound(roundNum, mini);
 
     if (result === 1) {
@@ -131,7 +143,7 @@ function playRound(roundNum: number): number {
 
 console.log("Welcome to the Simplified Card Game!");
 
-const gameMode: number = promptNumber(
+gameMode = promptNumber(
   "Choose game mode (1: best-of-3, 2: sum of cards):",
   1,
   2
@@ -171,13 +183,13 @@ else {
   let playerRounds: number = 0;
   let computerRounds: number = 0;
 
-  for (let round = 1; round <= 3; round++) {
+  for (let round = 1; round <= total_Rounds; round++) {
     console.log(`\nStarting Round ${round}`);
 
     let playerSum: number = 0;
     let computerSum: number = 0;
 
-    for (let mini = 1; mini <= 3; mini++) {
+    for (let mini = 1; mini <= mini_Rounds; mini++) {
       pause("Press Enter to draw cards.");
 
       const playerCard = drawCard();
@@ -221,4 +233,3 @@ else {
 
 console.log("\nThank you for playing!");
 console.log("Done.");
-
