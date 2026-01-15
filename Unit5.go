@@ -1,5 +1,5 @@
 // Author: William Provost
-// Version: 1.2.0
+// Version: 1.2.1
 // Date: 2025-01-09
 // Fileoverview: Simplified number-based card game using Unicode cards
 
@@ -29,7 +29,7 @@ func playGameMode1(reader *bufio.Reader, cardSymbols []string) {
 
 	fmt.Println("\nGame Mode 1: Best of 3 mini-rounds")
 
-	for mini = 1; mini <= 3; mini++ {
+	for mini = 1; mini <= 3; mini = mini + 1 {
 
 		fmt.Printf("\nMini-round %d\n", mini)
 		fmt.Print("Press ENTER to draw cards.")
@@ -43,10 +43,10 @@ func playGameMode1(reader *bufio.Reader, cardSymbols []string) {
 
 		if playerValue > computerValue {
 			fmt.Println("You win this mini-round!")
-			playerWins++
+			playerWins = playerWins + 1
 		} else if computerValue > playerValue {
 			fmt.Println("Computer wins this mini-round!")
-			computerWins++
+			computerWins = computerWins + 1
 		} else {
 			fmt.Println("Mini-round is a tie!")
 		}
@@ -80,14 +80,14 @@ func playGameMode2(reader *bufio.Reader, cardSymbols []string) {
 
 	fmt.Println("\nGame Mode 2: Sum of cards")
 
-	for round = 1; round <= 3; round++ {
+	for round = 1; round <= 3; round = round + 1 {
 
 		fmt.Printf("\nRound %d\n", round)
 
 		playerSum = 0
 		computerSum = 0
 
-		for mini = 1; mini <= 3; mini++ {
+		for mini = 1; mini <= 3; mini = mini + 1 {
 
 			fmt.Print("Press ENTER to draw cards.")
 			reader.ReadString('\n')
@@ -98,18 +98,18 @@ func playGameMode2(reader *bufio.Reader, cardSymbols []string) {
 			fmt.Printf("You drew: %s (%d)\n", cardSymbols[playerValue-1], playerValue)
 			fmt.Printf("Computer drew: %s (%d)\n", cardSymbols[computerValue-1], computerValue)
 
-			playerSum += playerValue
-			computerSum += computerValue
+			playerSum = playerSum + playerValue
+			computerSum = computerSum + computerValue
 
 			fmt.Printf("Current sum - You: %d Computer: %d\n", playerSum, computerSum)
 		}
 
 		if playerSum > computerSum {
 			fmt.Println("You win this round!")
-			playerRounds++
+			playerRounds = playerRounds + 1
 		} else if computerSum > playerSum {
 			fmt.Println("Computer wins this round!")
-			computerRounds++
+			computerRounds = computerRounds + 1
 		} else {
 			fmt.Println("Round is a tie!")
 		}
