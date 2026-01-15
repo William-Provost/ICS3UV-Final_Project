@@ -129,7 +129,7 @@ const miniRounds: number = 3;
 const totalRounds: number = 3;
 
 // Local gameMode variable
-let gameMode: number = promptNumber(
+const gameMode: number = promptNumber(
   "Choose game mode (1: best-of-3, 2: sum of cards):",
   1,
   2
