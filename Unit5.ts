@@ -114,7 +114,7 @@ function playRound(roundNum: number, miniRounds: number, cardSymbols: string[]):
 }
 
 /* ============================================================
- * GAME CODE
+ * MAIN PROGRAM
  * ============================================================
  */
 
