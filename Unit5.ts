@@ -120,7 +120,7 @@ function playRound(roundNum: number, miniRounds: number, cardSymbols: string[]):
 
 console.log("Welcome to the Simplified Card Game!");
 
-// Local constants (no globals)
+// Local constants
 const cardSymbols: string[] = [
   "🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂧",
   "🂨", "🂩", "🂪", "🂫", "🂭", "🂮"
